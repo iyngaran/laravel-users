@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Iyngaran\User\Http\Controllers\Api\UserController;
 
-Route::get('/user-api', [UserController::class, 'index']);
+Route::post('/user/register', RegisterController::class);
+Route::post('/user/login', LoginController::class);
+Route::post('/user', [UserController::class, 'index']);
+
 

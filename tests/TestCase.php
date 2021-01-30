@@ -5,6 +5,8 @@ namespace Iyngaran\User\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Iyngaran\User\UserServiceProvider;
+use Spatie\Permission\PermissionServiceProvider;
+use Laravel\Sanctum\SanctumServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +15,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Iyngaran\\User\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn(string $modelName) => 'Iyngaran\\User\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -21,6 +23,8 @@ class TestCase extends Orchestra
     {
         return [
             UserServiceProvider::class,
+            PermissionServiceProvider::class,
+            SanctumServiceProvider::class
         ];
     }
 
@@ -32,10 +36,11 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        $app['config']->set('auth.defaults.guard', 'api');
 
-        /*
         include_once __DIR__.'/../database/migrations/create_laravel_users_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        (new \CreateLaravelUsersTable())->up();
+        include_once __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
+        (new \CreatePermissionTables())->up();
     }
 }

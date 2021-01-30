@@ -31,7 +31,7 @@ class UserServiceProvider extends PackageServiceProvider
     {
         Route::group(
             [
-                'prefix' => "/",
+                'prefix' => config('users.url_prefix', 'system')."/",
                 'middleware' => "web",
                 'namespace' => 'Iyngaran\User\Http\Controllers'
             ],
@@ -45,7 +45,7 @@ class UserServiceProvider extends PackageServiceProvider
     {
         Route::group(
             [
-                'prefix' => "/api",
+                'prefix' => "/api/".config('users.url_prefix', 'system'),
                 'middleware' => "api",
                 'namespace' => 'Iyngaran\User\Http\Controllers\Api'
             ],
