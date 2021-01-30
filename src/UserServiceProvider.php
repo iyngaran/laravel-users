@@ -3,9 +3,9 @@
 namespace Iyngaran\User;
 
 use Illuminate\Support\Facades\Route;
+use Iyngaran\User\Commands\UserCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Iyngaran\User\Commands\UserCommand;
 
 class UserServiceProvider extends PackageServiceProvider
 {
@@ -33,7 +33,7 @@ class UserServiceProvider extends PackageServiceProvider
             [
                 'prefix' => config('users.url_prefix', 'system')."/",
                 'middleware' => "web",
-                'namespace' => 'Iyngaran\User\Http\Controllers'
+                'namespace' => 'Iyngaran\User\Http\Controllers',
             ],
             function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -47,7 +47,7 @@ class UserServiceProvider extends PackageServiceProvider
             [
                 'prefix' => "/api/".config('users.url_prefix', 'system'),
                 'middleware' => "api",
-                'namespace' => 'Iyngaran\User\Http\Controllers\Api'
+                'namespace' => 'Iyngaran\User\Http\Controllers\Api',
             ],
             function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
