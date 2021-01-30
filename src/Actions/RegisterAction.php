@@ -3,7 +3,6 @@
 
 namespace Iyngaran\User\Actions;
 
-
 class RegisterAction
 {
     public function execute(array $attributes)
@@ -20,7 +19,7 @@ class RegisterAction
                 'state' => readAttribute($attributes, 'state'),
                 'country' => readAttribute($attributes, 'country'),
                 'mobile' => readAttribute($attributes, 'mobile'),
-                'phone' => readAttribute($attributes, 'phone')
+                'phone' => readAttribute($attributes, 'phone'),
             ]
         );
 
@@ -31,7 +30,7 @@ class RegisterAction
                 'social_media_links' => readAttribute($attributes, 'social_media_links'),
                 'location_lat' => readAttribute($attributes, 'location_lat'),
                 'location_lon' => readAttribute($attributes, 'location_lon'),
-                'extra_fields' => readAttribute($attributes, 'extra_fields')
+                'extra_fields' => readAttribute($attributes, 'extra_fields'),
             ]
         );
 

@@ -3,12 +3,8 @@
 
 namespace Iyngaran\User\Tests\Http\Controllers\Api;
 
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Iyngaran\User\Models\UserProfile;
-use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
-use Spatie\Permission\Models\Role;
 
 class UserControllerTest extends TestCase
 {

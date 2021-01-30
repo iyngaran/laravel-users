@@ -21,11 +21,11 @@ class ExampleTest extends TestCase
             'password' => 'iyngarani',
             'company_name' => 'SAS',
             'address' => '25, 1/4 Chapel Lane',
-            'city'=>'Wellawatte',
+            'city' => 'Wellawatte',
             'state' => 'Colombo',
             'country' => 'Sri Lanka',
-            'mobile'=>'0711122288',
-            'phone'=> '011 2 456 880'
+            'mobile' => '0711122288',
+            'phone' => '011 2 456 880',
         ])->assignRole($role);
 
         $userProfile = new UserProfile(
@@ -33,13 +33,13 @@ class ExampleTest extends TestCase
                 'profile_picture' => 'test.png',
                 'website_address' => 'http://www.google.com',
                 'social_media_links' => json_encode([
-                    'fb' => "http://facebook.com"
+                    'fb' => "http://facebook.com",
                 ]),
                 'location_lat' => '9.233333',
                 'location_lon' => '3.20000',
             ]
         );
         $userProfile->user()->associate($user)->save();
-        $this->assertEquals(1,User::count());
+        $this->assertEquals(1, User::count());
     }
 }

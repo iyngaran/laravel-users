@@ -9,8 +9,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 trait UserTrait
 {
-    use HasRoles, HasPermissions;
-
+    use HasRoles;
+    use HasPermissions;
 
     public function initializeUserTrait()
     {
@@ -23,7 +23,7 @@ trait UserTrait
                 'state',
                 'country',
                 'mobile',
-                'phone'
+                'phone',
             ]
         );
     }

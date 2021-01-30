@@ -7,12 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Iyngaran\User\Traits\UserTrait;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use \Iyngaran\User\Models\UserProfile;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, UserTrait;
+    use Notifiable;
+    use HasApiTokens;
+    use UserTrait;
 
     protected $guard_name = 'api';
 
@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','password_change_at'
+        'name', 'email', 'password','password_change_at',
     ];
 
     /**
@@ -52,6 +52,4 @@ class User extends Authenticatable
     {
         return $this->morphMany(PasswordResetToken::class, 'tokenable');
     }
-
-
 }

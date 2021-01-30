@@ -4,9 +4,9 @@ namespace Iyngaran\User\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Iyngaran\User\UserServiceProvider;
+use Laravel\Sanctum\SanctumServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
-use Laravel\Sanctum\SanctumServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -15,7 +15,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Iyngaran\\User\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Iyngaran\\User\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -24,7 +24,7 @@ class TestCase extends Orchestra
         return [
             UserServiceProvider::class,
             PermissionServiceProvider::class,
-            SanctumServiceProvider::class
+            SanctumServiceProvider::class,
         ];
     }
 

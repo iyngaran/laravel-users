@@ -3,33 +3,31 @@
 
 namespace Iyngaran\User\Actions;
 
-
 use Illuminate\Support\Facades\Hash;
 use Iyngaran\User\Http\Resources\UserResource;
 
 class LoginAction
 {
-
     public function execute(array $attributes): array
     {
-        try{
+        try {
             $user = $this->getUserModel()
                 ::where('email', readAttribute($attributes, 'email'))
                 ->first();
 
-            if (!$user) {
+            if (! $user) {
                 return [
                     'errors' => [
-                        'email' => ['Invalid E-mail Address']
-                    ]
+                        'email' => ['Invalid E-mail Address'],
+                    ],
                 ];
             }
 
-            if (!Hash::check(readAttribute($attributes, 'password'), $user->password)) {
+            if (! Hash::check(readAttribute($attributes, 'password'), $user->password)) {
                 return [
                     'errors' => [
-                        'password' => ['Invalid Password']
-                    ]
+                        'password' => ['Invalid Password'],
+                    ],
                 ];
             }
 
@@ -43,17 +41,15 @@ class LoginAction
 
             return [
                 'user' => new UserResource($user),
-                'token' => $accessToken
+                'token' => $accessToken,
             ];
         } catch (\Exception $ex) {
             return [
                 'errors' => [
-                    'message' => [$ex->getMessage()]
-                ]
+                    'message' => [$ex->getMessage()],
+                ],
             ];
         }
-
-
     }
 
     private function getUserModel()
