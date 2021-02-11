@@ -23,14 +23,13 @@ class RegisterControllerTest extends TestCase
             'email' => $this->faker->email,
             'mobile' => $this->faker->phoneNumber,
             'password' => 'password!',
-            'password_confirmation' => 'password!',
-            'social_media_links' => json_encode([
-                'facebook' => 'http://facebook.com',
-                'google' => 'http://google.com',
-            ]),
+            'password_confirmation' => 'password!'
         ];
+
+
         $response = $this->post('api/system/user/register', $userData);
         $response->assertStatus(201);
         $this->assertEquals(1, User::all()->count());
+        $this->assertTrue(User::get()->first()->roles->contains('name','Guest'));
     }
 }

@@ -6,6 +6,7 @@ namespace Iyngaran\User\Traits;
 use Iyngaran\User\Models\UserProfile;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait UserTrait
 {
@@ -28,8 +29,19 @@ trait UserTrait
         );
     }
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function passwordResetTokens(): MorphMany
+    {
+        return $this->morphMany(PasswordResetToken::class, 'tokenable');
+    }
+
     public function profile(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(UserProfile::class);
     }
+
 }
