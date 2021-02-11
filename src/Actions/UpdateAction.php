@@ -7,6 +7,6 @@ class UpdateAction
 {
     public function execute(array $attributes, $user)
     {
-         dd($user->getId());
+        dd($user->getId());
     }
 }
