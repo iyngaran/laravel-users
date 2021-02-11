@@ -3,11 +3,10 @@
 
 namespace Iyngaran\User\Actions;
 
-class RegisterAction
+class UpdateAction
 {
-    public function execute(array $attributes)
+    public function execute(array $attributes, $user)
     {
-        $attributes['roles'] = config('users.default_roles', ['Guest']);
-        return (new CreateAction())->execute($attributes);
+         dd($user->getId());
     }
 }

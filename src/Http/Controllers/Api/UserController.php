@@ -6,6 +6,7 @@ namespace Iyngaran\User\Http\Controllers\Api;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Iyngaran\User\Actions\CreateAction;
+use Iyngaran\User\Actions\DeleteAction;
 use Iyngaran\User\Http\Requests\DestroyRequest;
 use Iyngaran\User\Http\Requests\IndexRequest;
 use Iyngaran\User\Http\Requests\ShowRequest;
@@ -39,8 +40,8 @@ class UserController extends Controller
         //
     }
 
-    public function destroy(DestroyRequest $request, $id)
+    public function destroy(DestroyRequest $request, UserRepositoryInterface $user, $id): JsonResponse
     {
-        //
+        return response()->json((new DeleteAction())->execute($user->find($id)), 204);
     }
 }

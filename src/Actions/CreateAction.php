@@ -38,6 +38,7 @@ class CreateAction
         foreach(readAttribute($attributes, 'roles') as $role) {
             $user->assignRole($role);
         }
+
         return getUserModel()::with('profile')->find($user->id);
     }
 }

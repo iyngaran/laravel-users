@@ -127,8 +127,13 @@ class UserControllerTest extends TestCase
     /** @test */
     public function a_user_details_can_be_deleted()
     {
-        $response = $this->post('api/system/user');
-        $this->assertTrue(true);
+        $user = User::factory()
+            ->activated()
+            ->hasAttached(Role::create(['name' => 'Guest']))
+            ->create();
+        $response = $this->delete('api/system/user/'.$user->id);
+        $this->assertEquals(0, User::all()->count());
+        $response->assertStatus(204);
     }
 
 }

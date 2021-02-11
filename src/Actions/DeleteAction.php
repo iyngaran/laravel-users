@@ -3,11 +3,10 @@
 
 namespace Iyngaran\User\Actions;
 
-class UpdateAction
+class DeleteAction
 {
-    public function execute(array $attributes, int $userId)
+    public function execute($user)
     {
-        $user = getUserModel()::find($userId);
-         dd($user->getId());
+        return $user->delete();
     }
 }
