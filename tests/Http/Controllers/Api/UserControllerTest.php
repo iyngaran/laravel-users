@@ -41,12 +41,12 @@ class UserControllerTest extends TestCase
                 'per_page',
                 'prev_page_url',
                 'to',
-                'total'
+                'total',
             ]
         );
         $response->assertJson(
             [
-                'current_page' => 2
+                'current_page' => 2,
             ]
         );
     }
