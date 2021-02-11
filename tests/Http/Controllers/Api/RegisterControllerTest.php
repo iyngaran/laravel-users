@@ -23,13 +23,13 @@ class RegisterControllerTest extends TestCase
             'email' => $this->faker->email,
             'mobile' => $this->faker->phoneNumber,
             'password' => 'password!',
-            'password_confirmation' => 'password!'
+            'password_confirmation' => 'password!',
         ];
 
 
         $response = $this->post('api/system/user/register', $userData);
         $response->assertStatus(201);
         $this->assertEquals(1, User::all()->count());
-        $this->assertTrue(User::get()->first()->roles->contains('name','Guest'));
+        $this->assertTrue(User::get()->first()->roles->contains('name', 'Guest'));
     }
 }
