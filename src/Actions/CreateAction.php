@@ -3,7 +3,6 @@
 
 namespace Iyngaran\User\Actions;
 
-
 class CreateAction
 {
     public function execute(array $attributes)
@@ -35,7 +34,7 @@ class CreateAction
             ]
         );
 
-        foreach(readAttribute($attributes, 'roles') as $role) {
+        foreach (readAttribute($attributes, 'roles') as $role) {
             $user->assignRole($role);
         }
 
