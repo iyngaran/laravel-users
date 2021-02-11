@@ -3,10 +3,10 @@
 
 namespace Iyngaran\User\Traits;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Iyngaran\User\Models\UserProfile;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait UserTrait
 {
@@ -43,5 +43,4 @@ trait UserTrait
     {
         return $this->hasOne(UserProfile::class);
     }
-
 }
