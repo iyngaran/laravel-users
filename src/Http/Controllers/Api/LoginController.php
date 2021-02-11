@@ -12,10 +12,10 @@ class LoginController extends Controller
 {
     public function __invoke(LoginRequest $request): JsonResponse
     {
-        return response()->json(
-            (new LoginAction())
-                ->execute($request->all()),
-            200
-        );
+        $user = (new LoginAction())->execute($request->all());
+        if (isset($user['user'])) {
+            return response()->json($user, 200);
+        }
+        return response()->json($user, 401);
     }
 }

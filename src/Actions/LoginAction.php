@@ -23,6 +23,14 @@ class LoginAction
                 ];
             }
 
+            if (! $user->is_active) {
+                return [
+                    'errors' => [
+                        'is_active' => ['The user account is deactivated'],
+                    ],
+                ];
+            }
+
             if (! Hash::check(readAttribute($attributes, 'password'), $user->password)) {
                 return [
                     'errors' => [
