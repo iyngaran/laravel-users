@@ -61,7 +61,7 @@ class UserControllerTest extends TestCase
     /** @test */
     public function a_user_details_can_be_created()
     {
-        $response = $this->post('api/system/user',[
+        $response = $this->post('api/system/user', [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
             'password' => $this->faker->password,
@@ -83,9 +83,9 @@ class UserControllerTest extends TestCase
             'location_lat' => $this->faker->latitude,
             'location_lon' => $this->faker->longitude,
             'extra_fields' => [
-                'age' => $this->faker->numberBetween(10,50),
+                'age' => $this->faker->numberBetween(10, 50),
                 'job' => $this->faker->jobTitle,
-            ]
+            ],
         ]);
         $this->assertTrue(true);
     }
