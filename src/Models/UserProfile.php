@@ -24,5 +24,4 @@ class UserProfile extends Model
     {
         return $this->belongsTo(getUserModel());
     }
-
 }

@@ -17,7 +17,7 @@ class LoginController extends Controller
         if (isset($user['user'])) {
             return response()->json(new AuthenticatedUserResource([
                 'user' => $user['user'],
-                'token' => $user['token']
+                'token' => $user['token'],
             ]), 200);
         }
 

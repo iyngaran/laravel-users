@@ -6,7 +6,6 @@ namespace Iyngaran\User\Tests\Http\Controllers\Api;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
 use Spatie\Permission\Models\Role;
@@ -45,8 +44,8 @@ class UserControllerTest extends TestCase
             ],
             'roles' => [
                 'Guest',
-                'Manager'
-            ]
+                'Manager',
+            ],
         ];
     }
 
@@ -111,8 +110,8 @@ class UserControllerTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 'profile_picture',
-                'roles'
-            ]
+                'roles',
+            ],
         ]);
         $this->assertEquals(1, User::all()->count());
     }
@@ -130,5 +129,4 @@ class UserControllerTest extends TestCase
         $response = $this->post('api/system/user');
         $this->assertTrue(true);
     }
-
 }

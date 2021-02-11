@@ -30,11 +30,10 @@ class RegisterControllerTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 'profile_picture',
-                'roles'
-            ]
+                'roles',
+            ],
         ]);
         $this->assertEquals(1, User::all()->count());
         $this->assertTrue(User::get()->first()->roles->contains('name', 'Guest'));
-
     }
 }
