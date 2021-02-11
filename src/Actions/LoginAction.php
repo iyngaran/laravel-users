@@ -44,7 +44,7 @@ class LoginAction
                 ->plainTextToken;
 
             $user = getUserModel()
-                ::with('roles', 'permissions')
+                ::with('profile','roles', 'permissions')
                 ->find($user->id);
 
             return [
