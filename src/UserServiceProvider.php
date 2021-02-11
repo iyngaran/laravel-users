@@ -4,6 +4,8 @@ namespace Iyngaran\User;
 
 use Illuminate\Support\Facades\Route;
 use Iyngaran\User\Commands\UserCommand;
+use Iyngaran\User\Repositories\UserRepository;
+use Iyngaran\User\Repositories\UserRepositoryInterface;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -23,6 +25,7 @@ class UserServiceProvider extends PackageServiceProvider
             ->hasMigration('create_laravel_users_table')
             ->hasCommand(UserCommand::class);
 
+        $this->registerRepositories();
         $this->registerWebRoutes();
         $this->registerApiRoutes();
     }
@@ -53,5 +56,10 @@ class UserServiceProvider extends PackageServiceProvider
                 $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
             }
         );
+    }
+
+    private function registerRepositories()
+    {
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 }

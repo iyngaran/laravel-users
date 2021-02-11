@@ -11,11 +11,13 @@ use Iyngaran\User\Http\Requests\IndexRequest;
 use Iyngaran\User\Http\Requests\ShowRequest;
 use Iyngaran\User\Http\Requests\StoreRequest;
 use Iyngaran\User\Http\Requests\UpdateRequest;
+use Iyngaran\User\Repositories\UserRepositoryInterface;
 
 class UserController extends Controller
 {
-    public function index(IndexRequest $request): JsonResponse
+    public function index(IndexRequest $request, UserRepositoryInterface $user): JsonResponse
     {
+        dd($user->all());
         return response()->json([
             'name' => 'Abigail',
             'state' => 'CA',
