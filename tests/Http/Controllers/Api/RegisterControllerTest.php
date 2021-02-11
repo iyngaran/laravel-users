@@ -27,7 +27,7 @@ class RegisterControllerTest extends TestCase
         ];
 
 
-        $response = $this->post('api/system/user/register', $userData);
+        $response = $this->post('api/system/register', $userData);
         $response->assertStatus(201);
         $this->assertEquals(1, User::all()->count());
         $this->assertTrue(User::get()->first()->roles->contains('name', 'Guest'));

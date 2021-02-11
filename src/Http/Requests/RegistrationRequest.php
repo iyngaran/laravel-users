@@ -14,6 +14,6 @@ class RegistrationRequest extends FormRequest
 
     public function rules()
     {
-        return config('users.user_registration_fields');
+        return config('users.registration_fields');
     }
 }

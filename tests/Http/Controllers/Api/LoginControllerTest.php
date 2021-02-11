@@ -20,7 +20,7 @@ class LoginControllerTest extends TestCase
         $user = User::factory()->activated()->create();
 
         $response = $this->post(
-            'api/system/user/login',
+            'api/system/login',
             [
                 'email' => $user->email,
                 'password' => 'password!',
@@ -45,7 +45,7 @@ class LoginControllerTest extends TestCase
                         ->create();
 
         $response = $this->post(
-            'api/system/user/login',
+            'api/system/login',
             [
                 'email' => $user->email,
                 'password' => 'password!',
@@ -67,7 +67,7 @@ class LoginControllerTest extends TestCase
         $user = User::factory()->activated()->create();
 
         $response = $this->post(
-            'api/system/user/login',
+            'api/system/login',
             [
                 'email' => $user->email,
                 'password' => 'Password!',
@@ -90,7 +90,7 @@ class LoginControllerTest extends TestCase
         $user = User::factory()->deActivated()->create();
 
         $response = $this->post(
-            'api/system/user/login',
+            'api/system/login',
             [
                 'email' => $user->email,
                 'password' => 'Password!',
