@@ -25,11 +25,16 @@ class RegisterControllerTest extends TestCase
             'password' => 'password!',
             'password_confirmation' => 'password!',
         ];
-
-
         $response = $this->post('api/system/register', $userData);
         $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'data' => [
+                'profile_picture',
+                'roles'
+            ]
+        ]);
         $this->assertEquals(1, User::all()->count());
         $this->assertTrue(User::get()->first()->roles->contains('name', 'Guest'));
+
     }
 }

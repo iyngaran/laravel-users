@@ -1,6 +1,6 @@
 <?php
 if (! function_exists('readAttribute')) {
-    function readAttribute(array $attributes, string $key): ?string
+    function readAttribute(array $attributes, string $key)
     {
         return ! empty($attributes[$key]) ? $attributes[$key] : null;
     }

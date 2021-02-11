@@ -4,7 +4,6 @@
 namespace Iyngaran\User\Actions;
 
 use Illuminate\Support\Facades\Hash;
-use Iyngaran\User\Http\Resources\UserResource;
 
 class LoginAction
 {
@@ -48,7 +47,7 @@ class LoginAction
                 ->find($user->id);
 
             return [
-                'user' => new UserResource($user),
+                'user' => $user,
                 'token' => $accessToken,
             ];
         } catch (\Exception $ex) {

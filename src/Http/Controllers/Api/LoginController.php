@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Iyngaran\User\Actions\LoginAction;
 use Iyngaran\User\Http\Requests\LoginRequest;
+use Iyngaran\User\Http\Resources\AuthenticatedUserResource;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,10 @@ class LoginController extends Controller
     {
         $user = (new LoginAction())->execute($request->all());
         if (isset($user['user'])) {
-            return response()->json($user, 200);
+            return response()->json(new AuthenticatedUserResource([
+                'user' => $user['user'],
+                'token' => $user['token']
+            ]), 200);
         }
 
         return response()->json($user, 401);

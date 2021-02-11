@@ -6,13 +6,49 @@ namespace Iyngaran\User\Tests\Http\Controllers\Api;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
+use Spatie\Permission\Models\Role;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+
+    private function mockUserData(): array
+    {
+        return [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
+            'is_active' => $this->faker->randomElement([0, 1]),
+            'company_name' => $this->faker->company,
+            'address' => $this->faker->address,
+            'city' => $this->faker->city,
+            'state' => $this->faker->state,
+            'country' => $this->faker->country,
+            'mobile' => $this->faker->phoneNumber,
+            'phone' => $this->faker->phoneNumber,
+            'profile_picture' => $this->faker->word . ".png",
+            'website_address' => $this->faker->url,
+            'social_media_links' => [
+                'facebook' => $this->faker->url,
+                'linkedIn' => $this->faker->url,
+                'twitter' => $this->faker->url,
+            ],
+            'location_lat' => $this->faker->latitude,
+            'location_lon' => $this->faker->longitude,
+            'extra_fields' => [
+                'age' => $this->faker->numberBetween(10, 50),
+                'job' => $this->faker->jobTitle,
+            ],
+            'roles' => [
+                'Guest',
+                'Manager'
+            ]
+        ];
+    }
 
     /** @test */
     public function users_can_be_retrieve()
@@ -54,40 +90,31 @@ class UserControllerTest extends TestCase
     /** @test */
     public function a_user_details_can_be_retrieve()
     {
-        $response = $this->get('api/system/user');
-        $this->assertTrue(true);
+        $user = User::factory()
+            ->state(new Sequence(
+                ['is_active' => 1],
+                ['is_active' => 0],
+            ))
+            ->create();
+
+        $response = $this->get('api/system/user/' . $user->id);
+        $response->assertStatus(200);
     }
 
     /** @test */
     public function a_user_details_can_be_created()
     {
-        $response = $this->post('api/system/user', [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => $this->faker->password,
-            'is_active' => $this->faker->randomElement([0,1]),
-            'company_name' => $this->faker->company,
-            'address' => $this->faker->address,
-            'city' => $this->faker->city,
-            'state' => $this->faker->state,
-            'country' => $this->faker->country,
-            'mobile' => $this->faker->phoneNumber,
-            'phone' => $this->faker->phoneNumber,
-            'profile_picture' => $this->faker->word.".png",
-            'website_address' => $this->faker->url,
-            'social_media_links' => [
-                'facebook' => $this->faker->url,
-                'linkedIn' => $this->faker->url,
-                'twitter' => $this->faker->url,
-            ],
-            'location_lat' => $this->faker->latitude,
-            'location_lon' => $this->faker->longitude,
-            'extra_fields' => [
-                'age' => $this->faker->numberBetween(10, 50),
-                'job' => $this->faker->jobTitle,
-            ],
+        Role::create(['name' => 'Guest']);
+        Role::create(['name' => 'Manager']);
+        $response = $this->post('api/system/user', $this->mockUserData());
+        $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'data' => [
+                'profile_picture',
+                'roles'
+            ]
         ]);
-        $this->assertTrue(true);
+        $this->assertEquals(1, User::all()->count());
     }
 
     /** @test */
@@ -103,4 +130,5 @@ class UserControllerTest extends TestCase
         $response = $this->post('api/system/user');
         $this->assertTrue(true);
     }
+
 }

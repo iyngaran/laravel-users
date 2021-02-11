@@ -5,6 +5,7 @@ namespace Iyngaran\User\Tests\Http\Controllers\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
 use Spatie\Permission\Models\Role;
@@ -30,8 +31,10 @@ class LoginControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure(
             [
-                'user',
-                'token',
+                'data' => [
+                    'user',
+                    'token',
+                ]
             ]
         );
     }
@@ -40,9 +43,9 @@ class LoginControllerTest extends TestCase
     public function a_guest_user_can_login()
     {
         $user = User::factory()
-                        ->activated()
-                        ->hasAttached(Role::create(['name' => 'Guest']))
-                        ->create();
+            ->activated()
+            ->hasAttached(Role::create(['name' => 'Guest']))
+            ->create();
 
         $response = $this->post(
             'api/system/login',
@@ -55,8 +58,10 @@ class LoginControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure(
             [
-                'user',
-                'token',
+                'data' => [
+                    'user',
+                    'token',
+                ]
             ]
         );
     }
@@ -64,7 +69,9 @@ class LoginControllerTest extends TestCase
     /** @test */
     public function a_user_can_not_login_with_invalid_password()
     {
-        $user = User::factory()->activated()->create();
+        $user = User::factory()
+            ->activated()
+            ->create();
 
         $response = $this->post(
             'api/system/login',

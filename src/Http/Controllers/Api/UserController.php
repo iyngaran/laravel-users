@@ -5,6 +5,7 @@ namespace Iyngaran\User\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Iyngaran\User\Actions\CreateAction;
 use Iyngaran\User\Http\Requests\DestroyRequest;
 use Iyngaran\User\Http\Requests\IndexRequest;
 use Iyngaran\User\Http\Requests\ShowRequest;
@@ -22,10 +23,10 @@ class UserController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        return response()->json([
-            'name' => 'Abigail',
-            'state' => 'CA',
-        ]);
+        return response()->json(
+            new UserResource((new CreateAction())->execute($request->all())),
+            201
+        );
     }
 
     public function show(ShowRequest $request, UserRepositoryInterface $user, $id): JsonResponse

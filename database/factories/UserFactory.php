@@ -4,6 +4,7 @@ namespace Iyngaran\User\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 
 class UserFactory extends Factory
@@ -36,6 +37,15 @@ class UserFactory extends Factory
             return [
                 'is_active' => 0,
             ];
+        });
+    }
+
+    public function configure(): Factory
+    {
+        return $this->afterMaking(function (User $user) {
+            UserProfile::factory()->for($user)->create();
+        })->afterCreating(function (User $user) {
+            UserProfile::factory()->for($user)->create();
         });
     }
 }
