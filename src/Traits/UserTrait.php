@@ -4,6 +4,7 @@
 namespace Iyngaran\User\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Iyngaran\User\Models\UserProfile;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
@@ -12,6 +13,7 @@ trait UserTrait
 {
     use HasRoles;
     use HasPermissions;
+    use SoftDeletes;
 
     public function initializeUserTrait()
     {

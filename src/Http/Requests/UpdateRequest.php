@@ -5,15 +5,15 @@ namespace Iyngaran\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrationRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return config('users.allow_users_to_register');
+        return true;
     }
 
     public function rules()
     {
-        return config('users.user_registration_fields');
+        return config('users.user_fields');
     }
 }

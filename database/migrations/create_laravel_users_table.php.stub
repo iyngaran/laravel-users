@@ -21,6 +21,7 @@ class CreateLaravelUsersTable extends Migration
         }
 
         Schema::table('users', function (Blueprint $table) {
+            $table->softDeletes();
             $table->tinyInteger('is_active')->after('password')->default(1);
             $table->string('company_name')->after('is_active')->nullable();
             $table->string('address')->after('company_name')->nullable();
@@ -40,6 +41,7 @@ class CreateLaravelUsersTable extends Migration
             $table->string('location_lon',15)->nullable();
             $table->json('extra_fields')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('NO ACTION');
@@ -48,12 +50,13 @@ class CreateLaravelUsersTable extends Migration
 
 
     public function down()
-        {
-            if (!Schema::hasTable('users')) {
-                    Schema::table('users', function (Blueprint $table) {
-                    $table->dropColumn(['is_active', 'company_name', 'address','city','state','country','mobile','phone']);
-                });
-            }
-            Schema::dropIfExists('user_profiles');
-        }
+    {
+         if (!Schema::hasTable('users')) {
+                Schema::table('users', function (Blueprint $table) {
+                $table->dropSoftDeletes();
+                $table->dropColumn(['is_active', 'company_name', 'address','city','state','country','mobile','phone']);
+            });
+         }
+         Schema::dropIfExists('user_profiles');
+    }
 }
