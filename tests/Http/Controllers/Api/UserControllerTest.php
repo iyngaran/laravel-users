@@ -6,6 +6,7 @@ namespace Iyngaran\User\Tests\Http\Controllers\Api;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
 use Spatie\Permission\Models\Role;
@@ -119,7 +120,12 @@ class UserControllerTest extends TestCase
     /** @test */
     public function a_user_details_can_be_updated()
     {
-        $response = $this->post('api/system/user');
+        $user = User::factory()
+            ->activated()
+            ->hasAttached(Role::create(['name' => 'Guest']))
+            ->create();
+
+        $response = $this->put('api/system/user/' . $user->id, $this->mockUserData());
         $this->assertTrue(true);
     }
 
@@ -130,8 +136,9 @@ class UserControllerTest extends TestCase
             ->activated()
             ->hasAttached(Role::create(['name' => 'Guest']))
             ->create();
-        $response = $this->delete('api/system/user/'.$user->id);
+        $response = $this->delete('api/system/user/' . $user->id);
         $this->assertEquals(0, User::all()->count());
+        //$this->assertEquals(0, UserProfile::all()->count());
         $response->assertStatus(204);
     }
 }

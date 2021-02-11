@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Iyngaran\User\Actions\CreateAction;
 use Iyngaran\User\Actions\DeleteAction;
+use Iyngaran\User\Actions\UpdateAction;
 use Iyngaran\User\Http\Requests\DestroyRequest;
 use Iyngaran\User\Http\Requests\IndexRequest;
 use Iyngaran\User\Http\Requests\ShowRequest;
@@ -35,9 +36,12 @@ class UserController extends Controller
         return response()->json(new UserResource($user->find($id)));
     }
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, UserRepositoryInterface $user, $id): JsonResponse
     {
-        //
+        return response()->json(
+            new UserResource((new UpdateAction())->execute($request->all(), $user->find($id))),
+            200
+        );
     }
 
     public function destroy(DestroyRequest $request, UserRepositoryInterface $user, $id): JsonResponse
