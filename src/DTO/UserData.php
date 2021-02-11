@@ -3,6 +3,7 @@
 
 namespace Iyngaran\User\DTO;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Iyngaran\User\Http\Requests\RegistrationRequest;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\Permission\Models\Permission;
@@ -13,19 +14,20 @@ class UserData extends DataTransferObject
     public string $name;
     public string $email;
     public string $password;
-    public int $isActive;
-    public ?string $companyName;
+    public int $is_active;
+    public ?string $company_name;
     public ?string $address;
     public ?string $city;
     public ?string $state;
     public ?string $country;
     public ?string $mobile;
     public ?string $phone;
-    public ?string $profilePicture;
-    public ?string $websiteAddress;
-    public ?string $socialMediaLinks;
-    public ?string $lat;
-    public ?string $lon;
+    public ?string $profile_picture;
+    public ?string $website_address;
+    public ?string $social_media_links;
+    public ?string $location_lat;
+    public ?string $location_lon;
+    public ?string $extra_fields;
 
     /**
      * @var Role[]|null
@@ -37,7 +39,8 @@ class UserData extends DataTransferObject
      */
     public ?array $permission;
 
-    public static function formRequest(RegistrationRequest $userRegistrationRequest)
+    public static function formRequest(FormRequest $request)
     {
+        dd($request->all());
     }
 }

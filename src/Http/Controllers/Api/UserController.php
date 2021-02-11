@@ -6,10 +6,15 @@ namespace Iyngaran\User\Http\Controllers\Api;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Iyngaran\User\Http\Requests\DestroyRequest;
+use Iyngaran\User\Http\Requests\IndexRequest;
+use Iyngaran\User\Http\Requests\ShowRequest;
+use Iyngaran\User\Http\Requests\StoreRequest;
+use Iyngaran\User\Http\Requests\UpdateRequest;
 
 class UserController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(IndexRequest $request): JsonResponse
     {
         return response()->json([
             'name' => 'Abigail',
@@ -17,7 +22,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRequest $request): JsonResponse
     {
         return response()->json([
             'name' => 'Abigail',
@@ -25,17 +30,17 @@ class UserController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(ShowRequest $request, $id)
     {
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         //
     }
 
-    public function destroy($id)
+    public function destroy(DestroyRequest $request, $id)
     {
         //
     }

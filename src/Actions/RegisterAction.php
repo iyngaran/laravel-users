@@ -7,7 +7,7 @@ class RegisterAction
 {
     public function execute(array $attributes)
     {
-        $user = $this->getUserModel()::create(
+        $user = getUserModel()::create(
             [
                 'name' => readAttribute($attributes, 'name'),
                 'email' => readAttribute($attributes, 'email'),
@@ -36,11 +36,6 @@ class RegisterAction
 
         $user->assignRole(config('users.default_roles', ['Guest']));
 
-        return $this->getUserModel()::with('profile')->find($user->id);
-    }
-
-    private function getUserModel()
-    {
-        return config('users.model');
+        return getUserModel()::with('profile')->find($user->id);
     }
 }

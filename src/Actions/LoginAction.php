@@ -11,7 +11,7 @@ class LoginAction
     public function execute(array $attributes): array
     {
         try {
-            $user = $this->getUserModel()
+            $user = getUserModel()
                 ::where('email', readAttribute($attributes, 'email'))
                 ->first();
 
@@ -43,7 +43,7 @@ class LoginAction
                 ->createToken(readAttribute($attributes, 'device_name'))
                 ->plainTextToken;
 
-            $user = $this->getUserModel()
+            $user = getUserModel()
                 ::with('roles', 'permissions')
                 ->find($user->id);
 
@@ -58,10 +58,5 @@ class LoginAction
                 ],
             ];
         }
-    }
-
-    private function getUserModel()
-    {
-        return config('users.model');
     }
 }
