@@ -16,6 +16,7 @@ class LoginController extends Controller
         if (isset($user['user'])) {
             return response()->json($user, 200);
         }
+
         return response()->json($user, 401);
     }
 }

@@ -18,12 +18,14 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->activated()->create();
 
-        $response = $this->post('api/system/user/login',
+        $response = $this->post(
+            'api/system/user/login',
             [
                 'email' => $user->email,
                 'password' => 'password!',
                 'device_name' => 'web',
-            ]);
+            ]
+        );
         $response->assertStatus(200);
         $response->assertJsonStructure(
             [
@@ -38,18 +40,20 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->activated()->create();
 
-        $response = $this->post('api/system/user/login',
+        $response = $this->post(
+            'api/system/user/login',
             [
                 'email' => $user->email,
                 'password' => 'Password!',
                 'device_name' => 'web',
-            ]);
+            ]
+        );
         $response->assertStatus(401);
         $response->assertJson(
             [
                 'errors' => [
-                    'password' => ['Invalid Password']
-                ]
+                    'password' => ['Invalid Password'],
+                ],
             ]
         );
     }
@@ -59,18 +63,20 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->deActivated()->create();
 
-        $response = $this->post('api/system/user/login',
+        $response = $this->post(
+            'api/system/user/login',
             [
                 'email' => $user->email,
                 'password' => 'Password!',
                 'device_name' => 'web',
-            ]);
+            ]
+        );
         $response->assertStatus(401);
         $response->assertJson(
             [
                 'errors' => [
-                    'is_active' => ['The user account is deactivated']
-                ]
+                    'is_active' => ['The user account is deactivated'],
+                ],
             ]
         );
     }
