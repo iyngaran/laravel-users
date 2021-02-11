@@ -3,10 +3,8 @@
 
 namespace Iyngaran\User\Repositories;
 
-
 class UserRepository implements UserRepositoryInterface
 {
-
     public function find(int $id)
     {
         // TODO: Implement find() method.

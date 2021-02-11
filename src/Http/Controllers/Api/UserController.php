@@ -4,7 +4,6 @@
 namespace Iyngaran\User\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Iyngaran\User\Http\Requests\DestroyRequest;
 use Iyngaran\User\Http\Requests\IndexRequest;

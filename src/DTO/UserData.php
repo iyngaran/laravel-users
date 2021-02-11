@@ -4,7 +4,6 @@
 namespace Iyngaran\User\DTO;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Iyngaran\User\Http\Requests\RegistrationRequest;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

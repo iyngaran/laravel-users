@@ -3,10 +3,10 @@
 
 namespace Iyngaran\User\Tests\Http\Controllers\Api;
 
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class UserControllerTest extends TestCase
 {
