@@ -17,6 +17,7 @@ class UserController extends Controller
     public function index(IndexRequest $request, UserRepositoryInterface $user): JsonResponse
     {
         dd($user->all());
+
         return response()->json([
             'name' => 'Abigail',
             'state' => 'CA',

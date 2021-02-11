@@ -3,19 +3,17 @@
 
 namespace Iyngaran\User\Repositories;
 
-
 use Iyngaran\User\Exceptions\UserNotFoundException;
 
 class UserRepository implements UserRepositoryInterface
 {
-
-
     public function find(int $id)
     {
         $user = getUserModel()::find($id);
         if ($user) {
             return $user;
         }
+
         throw new UserNotFoundException("The user details does not exist");
     }
 
@@ -25,6 +23,7 @@ class UserRepository implements UserRepositoryInterface
         if ($user) {
             return $user;
         }
+
         throw new UserNotFoundException("The user details does not exist");
     }
 
