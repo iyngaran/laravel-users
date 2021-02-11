@@ -3,6 +3,11 @@
 return [
     'url_prefix' => 'system',
     'model' => \Iyngaran\User\Tests\Models\User::class,
+    'defaults' => [
+        'per-page' => 5,
+        'order-by' => 'created_at',
+        'order-in' => 'DESC',
+    ],
     'default_status' => 1, // is_active
     'default_role' => ['Guest'],
     'allow_users_to_register' => true,

@@ -16,11 +16,7 @@ class UserController extends Controller
 {
     public function index(IndexRequest $request, UserRepositoryInterface $user): JsonResponse
     {
-        dd($user->all());
-        return response()->json([
-            'name' => 'Abigail',
-            'state' => 'CA',
-        ]);
+        return response()->json($user->all($request));
     }
 
     public function store(StoreRequest $request): JsonResponse
@@ -31,9 +27,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(ShowRequest $request, $id)
+    public function show(ShowRequest $request, UserRepositoryInterface $user, $id): JsonResponse
     {
-        //
+        return response()->json($user->find($id));
     }
 
     public function update(UpdateRequest $request, $id)

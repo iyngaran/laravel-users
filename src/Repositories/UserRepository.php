@@ -4,11 +4,13 @@
 namespace Iyngaran\User\Repositories;
 
 
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Iyngaran\User\Exceptions\UserNotFoundException;
+use Illuminate\Pagination\Paginator;
 
 class UserRepository implements UserRepositoryInterface
 {
-
 
     public function find(int $id)
     {
@@ -28,13 +30,32 @@ class UserRepository implements UserRepositoryInterface
         throw new UserNotFoundException("The user details does not exist");
     }
 
-    public function all(): ?Collection
+    public function all(FormRequest $request): ?LengthAwarePaginator
     {
-        return getUserModel()::all();
+        $page = $request->input('page');
+        $per_page = $request->input('per-page');
+        $order_by = $request->input('order-by');
+        $order_in = $request->input('order-in');
+
+        if (!$per_page) {
+            $per_page = config('users.defaults.per-page');
+        }
+
+        if (!$order_by) {
+            $order_by = config('users.defaults.order-by');
+        }
+
+        if (!$order_in) {
+            $order_in = config('users.defaults.order-in');
+        }
+
+        Paginator::currentPageResolver(
+            function () use ($page) {
+                return $page;
+            }
+        );
+
+        return getUserModel()::orderBy($order_by, $order_in)->paginate($per_page);
     }
 
-    private function getUserModel()
-    {
-        return config('users.model');
-    }
 }
