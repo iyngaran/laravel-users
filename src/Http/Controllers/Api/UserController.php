@@ -21,6 +21,7 @@ class UserController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
+        dd($request->all());
         return response()->json([
             'name' => 'Abigail',
             'state' => 'CA',

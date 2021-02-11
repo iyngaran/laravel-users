@@ -5,12 +5,14 @@ namespace Iyngaran\User\Tests\Http\Controllers\Api;
 
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
     public function users_can_be_retrieve()
@@ -52,14 +54,39 @@ class UserControllerTest extends TestCase
     /** @test */
     public function a_user_details_can_be_retrieve()
     {
-        $response = $this->post('api/system/user');
+        $response = $this->get('api/system/user');
         $this->assertTrue(true);
     }
 
     /** @test */
     public function a_user_details_can_be_created()
     {
-        $response = $this->post('api/system/user');
+        $response = $this->post('api/system/user',[
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
+            'is_active' => $this->faker->randomElement([0,1]),
+            'company_name' => $this->faker->company,
+            'address' => $this->faker->address,
+            'city' => $this->faker->city,
+            'state' => $this->faker->state,
+            'country' => $this->faker->country,
+            'mobile' => $this->faker->phoneNumber,
+            'phone' => $this->faker->phoneNumber,
+            'profile_picture' => $this->faker->word.".png",
+            'website_address' => $this->faker->url,
+            'social_media_links' => [
+                'facebook' => $this->faker->url,
+                'linkedIn' => $this->faker->url,
+                'twitter' => $this->faker->url,
+            ],
+            'location_lat' => $this->faker->latitude,
+            'location_lon' => $this->faker->longitude,
+            'extra_fields' => [
+                'age' => $this->faker->numberBetween(10,50),
+                'job' => $this->faker->jobTitle,
+            ]
+        ]);
         $this->assertTrue(true);
     }
 
