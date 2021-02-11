@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
+use Spatie\Permission\Models\Role;
 
 class LoginControllerTest extends TestCase
 {
@@ -17,6 +18,31 @@ class LoginControllerTest extends TestCase
     public function a_user_can_login()
     {
         $user = User::factory()->activated()->create();
+
+        $response = $this->post(
+            'api/system/user/login',
+            [
+                'email' => $user->email,
+                'password' => 'password!',
+                'device_name' => 'web',
+            ]
+        );
+        $response->assertStatus(200);
+        $response->assertJsonStructure(
+            [
+                'user',
+                'token',
+            ]
+        );
+    }
+
+    /** @test */
+    public function a_guest_user_can_login()
+    {
+        $user = User::factory()
+                        ->activated()
+                        ->hasAttached(Role::create(['name' => 'Guest']))
+                        ->create();
 
         $response = $this->post(
             'api/system/user/login',
