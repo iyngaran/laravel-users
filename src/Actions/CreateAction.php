@@ -12,17 +12,17 @@ class CreateAction
         $user = getUserModel()::create(
             array_merge(
                 $data->only(
-                'name',
-                'email',
-                'password',
-                'company_name',
-                'address',
-                'city',
-                'state',
-                'country',
-                'mobile',
-                'phone'
-            )
+                    'name',
+                    'email',
+                    'password',
+                    'company_name',
+                    'address',
+                    'city',
+                    'state',
+                    'country',
+                    'mobile',
+                    'phone'
+                )
                 ->toArray(),
                 [
                     'is_active' => config('users.default_status', 0),
