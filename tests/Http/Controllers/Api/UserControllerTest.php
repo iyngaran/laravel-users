@@ -93,7 +93,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_user_details_can_be_retrieve()
+    public function a_user_can_be_retrieve()
     {
         $user = User::factory()
             ->state(new Sequence(
@@ -107,7 +107,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_user_details_can_be_created()
+    public function a_user_can_be_created()
     {
         $response = $this->post('api/system/user', $this->mockUserData());
         $response->assertStatus(201);
@@ -121,7 +121,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_user_details_can_be_updated()
+    public function a_user_can_be_updated()
     {
         $user = User::factory()
             ->activated()
@@ -139,7 +139,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_user_details_can_be_deleted()
+    public function a_user_can_be_deleted()
     {
         $user = User::factory()
             ->activated()
