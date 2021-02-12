@@ -19,7 +19,8 @@ class UpdateAction
                 'state',
                 'country',
                 'mobile',
-                'phone')
+                'phone'
+            )
                 ->toArray()
         );
 
@@ -32,7 +33,8 @@ class UpdateAction
                     'social_media_links',
                     'location_lat',
                     'location_lon',
-                    'extra_fields')
+                    'extra_fields'
+                )
                     ->toArray()
             );
 

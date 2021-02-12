@@ -57,7 +57,7 @@ class UserData extends DataTransferObject
             'social_media_links' => $request->input('social_media_links'),
             'location_lat' => $request->input('location_lat'),
             'location_lon' => $request->input('location_lon'),
-            'extra_fields' => $request->input('extra_fields')
+            'extra_fields' => $request->input('extra_fields'),
         ];
 
         $roles = [];

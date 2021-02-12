@@ -10,7 +10,8 @@ class CreateAction
     public function execute(UserData $data)
     {
         $user = getUserModel()::create(
-            array_merge($data->only(
+            array_merge(
+                $data->only(
                 'name',
                 'email',
                 'password',
@@ -20,10 +21,11 @@ class CreateAction
                 'state',
                 'country',
                 'mobile',
-                'phone')
+                'phone'
+            )
                 ->toArray(),
                 [
-                    'is_active' => config('users.default_status', 0)
+                    'is_active' => config('users.default_status', 0),
                 ]
             )
         );
@@ -35,7 +37,8 @@ class CreateAction
                 'social_media_links',
                 'location_lat',
                 'location_lon',
-                'extra_fields')
+                'extra_fields'
+            )
                 ->toArray()
         );
 
