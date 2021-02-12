@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserControllerTest extends TestCase
@@ -43,9 +44,13 @@ class UserControllerTest extends TestCase
                 'age' => $this->faker->numberBetween(10, 50),
                 'job' => $this->faker->jobTitle,
             ],
-            'roles' => [
-                'Guest',
-                'Manager',
+            'role_ids' => [
+                Role::create(['name' => 'Guest'])->id,
+                Role::create(['name' => 'Manager'])->id,
+            ],
+            'permission_ids' => [
+                Permission::create(['name' => 'Add User'])->id,
+                Permission::create(['name' => 'Manage User'])->id,
             ],
         ];
     }
@@ -104,8 +109,6 @@ class UserControllerTest extends TestCase
     /** @test */
     public function a_user_details_can_be_created()
     {
-        Role::create(['name' => 'Guest']);
-        Role::create(['name' => 'Manager']);
         $response = $this->post('api/system/user', $this->mockUserData());
         $response->assertStatus(201);
         $response->assertJsonStructure([
@@ -122,10 +125,16 @@ class UserControllerTest extends TestCase
     {
         $user = User::factory()
             ->activated()
-            ->hasAttached(Role::create(['name' => 'Guest']))
+            ->hasAttached(Role::create(['name' => 'IT Manager']))
             ->create();
 
         $response = $this->put('api/system/user/' . $user->id, $this->mockUserData());
+        $response->assertJsonStructure([
+            'data' => [
+                'profile_picture',
+                'roles',
+            ],
+        ]);
         $this->assertTrue(true);
     }
 

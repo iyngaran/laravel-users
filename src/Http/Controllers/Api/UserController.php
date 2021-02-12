@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Iyngaran\User\Actions\CreateAction;
 use Iyngaran\User\Actions\DeleteAction;
 use Iyngaran\User\Actions\UpdateAction;
+use Iyngaran\User\DTO\UserData;
 use Iyngaran\User\Http\Requests\DestroyRequest;
 use Iyngaran\User\Http\Requests\IndexRequest;
 use Iyngaran\User\Http\Requests\ShowRequest;
@@ -26,7 +27,7 @@ class UserController extends Controller
     public function store(StoreRequest $request): JsonResponse
     {
         return response()->json(
-            new UserResource((new CreateAction())->execute($request->all())),
+            new UserResource((new CreateAction())->execute(UserData::formRequest($request))),
             201
         );
     }
@@ -39,7 +40,7 @@ class UserController extends Controller
     public function update(UpdateRequest $request, UserRepositoryInterface $user, $id): JsonResponse
     {
         return response()->json(
-            new UserResource((new UpdateAction())->execute($request->all(), $user->find($id))),
+            new UserResource((new UpdateAction())->execute(UserData::formRequest($request), $user->find($id))),
             200
         );
     }

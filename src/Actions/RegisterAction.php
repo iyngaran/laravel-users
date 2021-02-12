@@ -3,12 +3,12 @@
 
 namespace Iyngaran\User\Actions;
 
+use Iyngaran\User\DTO\UserData;
+
 class RegisterAction
 {
-    public function execute(array $attributes)
+    public function execute(UserData $data)
     {
-        $attributes['roles'] = config('users.default_roles', ['Guest']);
-
-        return (new CreateAction())->execute($attributes);
+        return (new CreateAction())->execute($data);
     }
 }

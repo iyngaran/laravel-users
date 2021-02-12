@@ -3,38 +3,55 @@
 
 namespace Iyngaran\User\Actions;
 
+use Iyngaran\User\DTO\UserData;
+
 class UpdateAction
 {
-    public function execute(array $attributes, $user)
+    public function execute(UserData $data, $user)
     {
         $user->update(
-            [
-                'name' => readAttribute($attributes, 'name'),
-                'email' => readAttribute($attributes, 'email'),
-                'password' => readAttribute($attributes, 'password'),
-                'is_active' => config('users.default_status', 0),
-                'company_name' => readAttribute($attributes, 'company_name'),
-                'address' => readAttribute($attributes, 'address'),
-                'city' => readAttribute($attributes, 'city'),
-                'state' => readAttribute($attributes, 'state'),
-                'country' => readAttribute($attributes, 'country'),
-                'mobile' => readAttribute($attributes, 'mobile'),
-                'phone' => readAttribute($attributes, 'phone'),
-            ]
+            $data->only(
+                'name',
+                'email',
+                'company_name',
+                'address',
+                'city',
+                'state',
+                'country',
+                'mobile',
+                'phone')
+                ->toArray()
         );
 
-        $user->profile->update(
-            [
-                'profile_picture' => readAttribute($attributes, 'profile_picture'),
-                'website_address' => readAttribute($attributes, 'website_address'),
-                'social_media_links' => readAttribute($attributes, 'social_media_links'),
-                'location_lat' => readAttribute($attributes, 'location_lat'),
-                'location_lon' => readAttribute($attributes, 'location_lon'),
-                'extra_fields' => readAttribute($attributes, 'extra_fields'),
-            ]
-        );
-        foreach (readAttribute($attributes, 'roles') as $role) {
-            $user->assignRole($role);
+        $user
+            ->profile()
+            ->update(
+                $data->only(
+                    'profile_picture',
+                    'website_address',
+                    'social_media_links',
+                    'location_lat',
+                    'location_lon',
+                    'extra_fields')
+                    ->toArray()
+            );
+
+        if ($password = $data->only('password')->toArray()) {
+            $user->update($password);
+        }
+
+        if ($is_active = $data->only('is_active')->toArray()) {
+            $user->update($is_active);
+        }
+
+        if ($roles = $data->only('roles')->toArray()) {
+            $user->syncRoles($roles);
+        }
+
+        if ($permissions = $data->only('permissions')->toArray()) {
+            foreach ($permissions as $permission) {
+                $user->syncPermissions($permission);
+            }
         }
 
         return getUserModel()::with('profile')->find($user->id);
