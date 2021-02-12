@@ -21,7 +21,7 @@ class UserCommand extends Command
         $email = $this->ask('What is the email address ?');
         $userPassword = $this->_generatePassword();
 
-        if (!$role = Role::where('name','Administrator')->first()) {
+        if (! $role = Role::where('name', 'Administrator')->first()) {
             $role = Role::create(['name' => 'Administrator']);
         }
 
@@ -31,8 +31,8 @@ class UserCommand extends Command
             'mobile' => "1234567890",
             'password' => $userPassword,
             'role_ids' => [
-                $role->id
-            ]
+                $role->id,
+            ],
         ];
         $request = new FormRequest();
         $request->replace($userData);
@@ -57,6 +57,7 @@ class UserCommand extends Command
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
+
         return $randomString;
     }
 }
