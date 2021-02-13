@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
-use Laravel\Sanctum\Sanctum;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
