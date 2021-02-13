@@ -11,6 +11,7 @@ return [
     'default_status' => 1, // is_active
     'default_role' => ['Guest'],
     'allow_users_to_register' => true,
+    'middleware' => ['auth:sanctum'],
     // the fields validation for user registration
     'user_registration_fields' => [
         'name' => 'required',

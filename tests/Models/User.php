@@ -16,7 +16,7 @@ class User extends Authenticatable
     use UserTrait;
     use HasFactory;
 
-    protected $guard_name = 'api';
+    protected $guard_name = 'sanctum';
 
     /**
      * The attributes that are mass assignable.

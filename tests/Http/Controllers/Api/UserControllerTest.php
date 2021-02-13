@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Iyngaran\User\Models\UserProfile;
 use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
+use Laravel\Sanctum\Sanctum;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -16,6 +17,12 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->login();
+    }
 
     private function mockUserData(): array
     {
@@ -31,7 +38,7 @@ class UserControllerTest extends TestCase
             'country' => $this->faker->country,
             'mobile' => $this->faker->phoneNumber,
             'phone' => $this->faker->phoneNumber,
-            'profile_picture' => $this->faker->word . ".png",
+            'profile_picture' => $this->faker->word.".png",
             'website_address' => $this->faker->url,
             'social_media_links' => [
                 'facebook' => $this->faker->url,
@@ -102,13 +109,14 @@ class UserControllerTest extends TestCase
             ))
             ->create();
 
-        $response = $this->get('api/system/user/' . $user->id);
+        $response = $this->get('api/system/user/'.$user->id);
         $response->assertStatus(200);
     }
 
     /** @test */
     public function a_user_can_be_created()
     {
+        $total_users = User::all()->count();
         $response = $this->post('api/system/user', $this->mockUserData());
         $response->assertStatus(201);
         $response->assertJsonStructure([
@@ -117,7 +125,7 @@ class UserControllerTest extends TestCase
                 'roles',
             ],
         ]);
-        $this->assertEquals(1, User::all()->count());
+        $this->assertEquals($total_users + 1, User::all()->count());
     }
 
     /** @test */
@@ -128,7 +136,7 @@ class UserControllerTest extends TestCase
             ->hasAttached(Role::create(['name' => 'IT Manager']))
             ->create();
 
-        $response = $this->put('api/system/user/' . $user->id, $this->mockUserData());
+        $response = $this->put('api/system/user/'.$user->id, $this->mockUserData());
         $response->assertJsonStructure([
             'data' => [
                 'profile_picture',
@@ -145,8 +153,9 @@ class UserControllerTest extends TestCase
             ->activated()
             ->hasAttached(Role::create(['name' => 'Guest']))
             ->create();
-        $response = $this->delete('api/system/user/' . $user->id);
-        $this->assertEquals(0, User::all()->count());
+        $total_users = User::all()->count();
+        $response = $this->delete('api/system/user/'.$user->id);
+        $this->assertEquals(($total_users - 1), User::all()->count());
         //$this->assertEquals(0, UserProfile::all()->count());
         $response->assertStatus(204);
     }
