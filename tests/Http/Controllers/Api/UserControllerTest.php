@@ -86,8 +86,8 @@ class UserControllerTest extends TestCase
                     'per_page',
                     'to',
                     'total',
-                    'path'
-                ]
+                    'path',
+                ],
             ]
         );
 
@@ -97,8 +97,8 @@ class UserControllerTest extends TestCase
                     'current_page' => 2,
                     'per_page' => 5,
                     'to' => 10,
-                    'total' => 36
-                ]
+                    'total' => 36,
+                ],
             ]
         );
     }
@@ -227,8 +227,8 @@ class UserControllerTest extends TestCase
                     'per_page',
                     'to',
                     'total',
-                    'path'
-                ]
+                    'path',
+                ],
             ]
         );
 
@@ -238,8 +238,8 @@ class UserControllerTest extends TestCase
                     'current_page' => 1,
                     'per_page' => 5,
                     'to' => 1,
-                    'total' => 1
-                ]
+                    'total' => 1,
+                ],
             ]
         );
     }
