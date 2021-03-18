@@ -34,7 +34,7 @@ class UserServiceProvider extends PackageServiceProvider
     {
         Route::group(
             [
-                'prefix' => config('users.url_prefix', 'system')."/"
+                'prefix' => config('users.url_prefix', 'system')."/",
             ],
             function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -47,7 +47,7 @@ class UserServiceProvider extends PackageServiceProvider
         Route::group(
             [
                 'prefix' => "/api/".config('users.url_prefix', 'system'),
-                'middleware' => 'api'
+                'middleware' => 'api',
             ],
             function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
