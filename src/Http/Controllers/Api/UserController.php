@@ -4,6 +4,7 @@
 namespace Iyngaran\User\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Routing\Controller;
 use Iyngaran\User\Actions\CreateAction;
 use Iyngaran\User\Actions\DeleteAction;
@@ -19,9 +20,9 @@ use Iyngaran\User\Repositories\UserRepositoryInterface;
 
 class UserController extends Controller
 {
-    public function index(IndexRequest $request, UserRepositoryInterface $user): JsonResponse
+    public function index(IndexRequest $request, UserRepositoryInterface $user): AnonymousResourceCollection
     {
-        return response()->json($user->all($request));
+        return UserResource::collection($user->search($request));
     }
 
     public function store(StoreRequest $request): JsonResponse

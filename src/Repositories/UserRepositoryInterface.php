@@ -12,5 +12,5 @@ interface UserRepositoryInterface
 
     public function findWithRolesAndPermissions(int $id);
 
-    public function all(FormRequest $request): ?LengthAwarePaginator;
+    public function search(FormRequest $request): ?LengthAwarePaginator;
 }

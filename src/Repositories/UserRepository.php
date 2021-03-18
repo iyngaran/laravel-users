@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Iyngaran\User\Exceptions\UserNotFoundException;
+use Iyngaran\User\Search\SearchUser;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -30,31 +31,8 @@ class UserRepository implements UserRepositoryInterface
         throw new UserNotFoundException("The user details does not exist");
     }
 
-    public function all(FormRequest $request): ?LengthAwarePaginator
+    public function search(FormRequest $request): ?LengthAwarePaginator
     {
-        $page = $request->input('page');
-        $per_page = $request->input('per-page');
-        $order_by = $request->input('order-by');
-        $order_in = $request->input('order-in');
-
-        if (! $per_page) {
-            $per_page = config('users.defaults.per-page');
-        }
-
-        if (! $order_by) {
-            $order_by = config('users.defaults.order-by');
-        }
-
-        if (! $order_in) {
-            $order_in = config('users.defaults.order-in');
-        }
-
-        Paginator::currentPageResolver(
-            function () use ($page) {
-                return $page;
-            }
-        );
-
-        return getUserModel()::orderBy($order_by, $order_in)->paginate($per_page);
+        return (new SearchUser())->getPaginatedResults($request);
     }
 }
