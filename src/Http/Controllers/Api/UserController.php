@@ -3,7 +3,6 @@
 
 namespace Iyngaran\User\Http\Controllers\Api;
 
-
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Routing\Controller;
 use Iyngaran\User\Http\Requests\IndexRequest;
@@ -16,5 +15,4 @@ class UserController extends Controller
     {
         return UserResource::collection($user->search($request));
     }
-
 }
