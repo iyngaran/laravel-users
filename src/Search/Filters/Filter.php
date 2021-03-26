@@ -3,7 +3,6 @@
 
 namespace Iyngaran\User\Search\Filters;
 
-
 use Illuminate\Database\Eloquent\Builder;
 
 interface Filter

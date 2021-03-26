@@ -21,15 +21,15 @@ class SearchUser extends Search
         $reqSortBy = $filters->input('sort-by');
         $reqSortOrder = $filters->input('order');
 
-        if (!$reqPerPage) {
+        if (! $reqPerPage) {
             $reqPerPage = config('users.defaults.per-page');
         }
 
-        if (!$reqSortBy) {
+        if (! $reqSortBy) {
             $reqSortBy = config('users.defaults.order-by');
         }
 
-        if (!$reqSortOrder) {
+        if (! $reqSortOrder) {
             $reqSortOrder = config('users.defaults.order-in');
         }
 
@@ -41,6 +41,7 @@ class SearchUser extends Search
         );
 
         $userModel = getUserModel();
+
         return $this->apply($filters, new $userModel)
             ->orderBy($reqSortBy, $reqSortOrder)
             ->paginate($reqPerPage);
