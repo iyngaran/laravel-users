@@ -19,12 +19,4 @@ class UserController extends Controller
     {
         return UserResource::collection($user->search($request));
     }
-
-    public function store(StoreRequest $request): JsonResponse
-    {
-        return response()->json(
-            new UserResource((new CreateAction())->execute(UserData::formRequest($request))),
-            201
-        );
-    }
 }
