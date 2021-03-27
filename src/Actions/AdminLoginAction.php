@@ -38,7 +38,7 @@ class AdminLoginAction
                 ];
             }
 
-            if (!$user->hasAnyRole(['Administrator'])) {
+            if (! $user->hasAnyRole(['Administrator'])) {
                 return [
                     'errors' => [
                         'user' => ['Invalid user login'],

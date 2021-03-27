@@ -38,7 +38,7 @@ class LoginAction
                 ];
             }
 
-            if (!$user->hasAnyRole(['Guest'])) {
+            if (! $user->hasAnyRole(['Guest'])) {
                 return [
                     'errors' => [
                         'user' => ['Invalid user login'],
