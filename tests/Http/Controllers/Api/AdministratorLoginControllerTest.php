@@ -9,21 +9,21 @@ use Iyngaran\User\Tests\Models\User;
 use Iyngaran\User\Tests\TestCase;
 use Spatie\Permission\Models\Role;
 
-class LoginControllerTest extends TestCase
+class AdministratorLoginControllerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
 
     /** @test */
-    public function a_user_can_login()
+    public function an_administrator_can_login()
     {
         $user = User::factory()
             ->activated()
-            ->hasAttached(Role::create(['name' => 'Guest']))
+            ->hasAttached(Role::create(['name' => 'Administrator']))
             ->create();
 
         $response = $this->post(
-            'api/system/login',
+            'api/system/administrator/login',
             [
                 'email' => $user->email,
                 'password' => 'password!',
@@ -42,15 +42,15 @@ class LoginControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_user_can_login()
+    public function an_administrator_user_can_login()
     {
         $user = User::factory()
             ->activated()
-            ->hasAttached(Role::create(['name' => 'Guest']))
+            ->hasAttached(Role::create(['name' => 'Administrator']))
             ->create();
 
         $response = $this->post(
-            'api/system/login',
+            'api/system/administrator/login',
             [
                 'email' => $user->email,
                 'password' => 'password!',
@@ -69,14 +69,14 @@ class LoginControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_not_login_with_invalid_password()
+    public function a_administrator_can_not_login_with_invalid_password()
     {
         $user = User::factory()
             ->activated()
             ->create();
 
         $response = $this->post(
-            'api/system/login',
+            'api/system/administrator/login',
             [
                 'email' => $user->email,
                 'password' => 'Password!',
@@ -94,12 +94,12 @@ class LoginControllerTest extends TestCase
     }
 
     /** @test */
-    public function a_deactivated_user_can_not_login()
+    public function a_deactivated_administrator_can_not_login()
     {
         $user = User::factory()->deActivated()->create();
 
         $response = $this->post(
-            'api/system/login',
+            'api/system/administrator/login',
             [
                 'email' => $user->email,
                 'password' => 'Password!',
@@ -117,15 +117,15 @@ class LoginControllerTest extends TestCase
     }
 
     /** @test */
-    public function an_administrator_user_can_login()
+    public function an_guest_user_can_login()
     {
         $user = User::factory()
             ->activated()
-            ->hasAttached(Role::create(['name' => 'Administrator']))
+            ->hasAttached(Role::create(['name' => 'Guest']))
             ->create();
 
         $response = $this->post(
-            'api/system/login',
+            'api/system/administrator/login',
             [
                 'email' => $user->email,
                 'password' => 'password!',

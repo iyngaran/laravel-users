@@ -5,7 +5,7 @@ namespace Iyngaran\User\Actions;
 
 use Illuminate\Support\Facades\Hash;
 
-class LoginAction
+class AdminLoginAction
 {
     public function execute(array $attributes): array
     {
@@ -38,7 +38,7 @@ class LoginAction
                 ];
             }
 
-            if (!$user->hasAnyRole(['Guest'])) {
+            if (!$user->hasAnyRole(['Administrator'])) {
                 return [
                     'errors' => [
                         'user' => ['Invalid user login'],
