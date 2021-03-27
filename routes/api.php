@@ -10,6 +10,7 @@ Route::post('/login', LoginController::class);
 
 Route::resource('/user', UserController::class)->only([
     'index',
+    'store',
 ]);
 
 Route::group(
