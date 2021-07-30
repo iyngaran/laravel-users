@@ -4,6 +4,7 @@
 namespace Iyngaran\User\Actions;
 
 use Iyngaran\User\DTO\UserData;
+use Iyngaran\User\Jobs\SendWelcomeMail;
 
 class CreateAction
 {
@@ -57,7 +58,7 @@ class CreateAction
                 }
             }
         }
-
+        dispatch(new SendWelcomeMail($user));
         return getUserModel()::with('profile')->find($user->id);
     }
 }
