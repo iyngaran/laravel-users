@@ -63,7 +63,7 @@ class UserData extends DataTransferObject
         $roles = [];
         if ($request->input('role_ids')) {
             foreach ($request->input('role_ids') as $role_id) {
-                array_push($roles, Role::findById($role_id));
+                array_push($roles, Role::find($role_id));
             }
             $userData['roles'] = $roles;
         }
