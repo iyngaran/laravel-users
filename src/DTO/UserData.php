@@ -71,7 +71,7 @@ class UserData extends DataTransferObject
         $permissions = [];
         if ($request->input('permission_ids')) {
             foreach ($request->input('permission_ids') as $permission_id) {
-                array_push($permissions, Permission::findById($permission_id));
+                array_push($permissions, Permission::find($permission_id));
             }
             $userData['permissions'] = $permissions;
         }
