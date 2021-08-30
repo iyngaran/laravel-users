@@ -13,7 +13,7 @@ class UserData extends DataTransferObject
     public string $name;
     public string $email;
     public ?string $password;
-    public int $is_active;
+    public ?int $is_active;
     public ?string $company_name;
     public ?string $address;
     public ?string $city;
@@ -44,7 +44,6 @@ class UserData extends DataTransferObject
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => $request->input('password'),
-            'is_active' => $request->input('is_active') ? $request->input('is_active') : config('users.default_status', 2),
             'company_name' => $request->input('company_name'),
             'address' => $request->input('address'),
             'city' => $request->input('city'),
@@ -59,6 +58,10 @@ class UserData extends DataTransferObject
             'location_lon' => $request->input('location_lon'),
             'extra_fields' => $request->input('extra_fields'),
         ];
+        
+        if ($request->input('is_active')) {
+            $userData['is_active'] = $request->input('is_active');
+        }
 
         $roles = [];
         if ($request->input('role_ids')) {
