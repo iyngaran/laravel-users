@@ -39,11 +39,11 @@ class UpdateAction
             );
 
         if ($password = $data->only('password')->toArray()) {
-             dd($password);
             $user->update($password);
         }
 
-        if ($is_active = $data->only('is_active')->toArray()) {
+        $user_status = $data->only('is_active')->toArray()
+        if (isset($user_status['is_active]) && ($user_status['is_active] == 0 || $user_status['is_active] == 1)) {
             $user->update($is_active);
         }
 
