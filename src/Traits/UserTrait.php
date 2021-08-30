@@ -27,6 +27,7 @@ trait UserTrait
                 'country',
                 'mobile',
                 'phone',
+                'is_active'
             ]
         );
     }
