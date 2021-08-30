@@ -60,7 +60,7 @@ class UserData extends DataTransferObject
         ];
         
         if ($request->input('is_active')) {
-            $userData['is_active'] = $request->input('is_active');
+            $userData['is_active'] = (int)$request->input('is_active');
         }
 
         $roles = [];
