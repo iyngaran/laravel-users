@@ -43,6 +43,7 @@ class UpdateAction
         }
 
         $user_status = $data->only('is_active')->toArray();
+        dd($user_status);
         if ($user_status) {
             $user->update($user_status);
         }
