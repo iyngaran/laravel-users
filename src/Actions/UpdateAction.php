@@ -12,7 +12,6 @@ class UpdateAction
         $user->update(
             $data->only(
                 'name',
-                'email',
                 'company_name',
                 'address',
                 'city',
