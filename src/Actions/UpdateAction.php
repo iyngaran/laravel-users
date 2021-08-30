@@ -42,8 +42,8 @@ class UpdateAction
             $user->update($password);
         }
 
-        $user_status = $data->only('is_active')->toArray()
-        if (isset($user_status['is_active]) && ($user_status['is_active] == 0 || $user_status['is_active] == 1)) {
+        $user_status = $data->only('is_active')->toArray();
+        if (isset($user_status['is_active]) && ($user_status['is_active] != '')) {
             $user->update($user_status);
         }
 
