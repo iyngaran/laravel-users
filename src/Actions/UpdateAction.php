@@ -39,7 +39,7 @@ class UpdateAction
             );
 
         if ($password = $data->only('password')->toArray()) {
-             dd($password)
+             dd($password);
             $user->update($password);
         }
 
