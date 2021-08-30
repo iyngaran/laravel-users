@@ -44,7 +44,7 @@ class UpdateAction
 
         $user_status = $data->only('is_active')->toArray()
         if (isset($user_status['is_active]) && ($user_status['is_active] == 0 || $user_status['is_active] == 1)) {
-            $user->update($is_active);
+            $user->update($user_status);
         }
 
         if ($roles = $data->only('roles')->toArray()) {
