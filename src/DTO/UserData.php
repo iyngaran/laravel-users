@@ -12,7 +12,7 @@ class UserData extends DataTransferObject
 {
     public string $name;
     public string $email;
-    public string $password;
+    public ?string $password;
     public int $is_active;
     public ?string $company_name;
     public ?string $address;
