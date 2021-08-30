@@ -22,7 +22,7 @@ class AdminLoginAction
                 ];
             }
 
-            if (! $user->is_active) {
+            if ($user->is_active != 1) {
                 return [
                     'errors' => [
                         'is_active' => ['The user account is deactivated'],
