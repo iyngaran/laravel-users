@@ -44,7 +44,7 @@ class UserData extends DataTransferObject
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => $request->input('password'),
-            'is_active' => config('users.default_status', 0),
+            'is_active' => $request->input('is_active') ? $request->input('is_active') : config('users.default_status', 2),
             'company_name' => $request->input('company_name'),
             'address' => $request->input('address'),
             'city' => $request->input('city'),
